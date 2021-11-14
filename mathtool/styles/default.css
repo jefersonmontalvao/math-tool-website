@@ -21,8 +21,8 @@ body {
 .site-header__title::before {
     content: "";
     position: absolute;
-    height: 5px;
+    height: 4px;
     width: 75px;
     background-color: #ff2f2f;
-    bottom: 24px;
+    bottom: 25px;
 }
