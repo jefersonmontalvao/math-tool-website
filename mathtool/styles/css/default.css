@@ -19,25 +19,23 @@ body {
     color: #f2f2f2;
     text-align: center;
     padding-top: 9px;
-    transition: transform .3s ease-in-out;
-    transition-delay: 0.5s;
 }
 .site-header__title:hover {
+    cursor: pointer;
     transform: rotate(-2deg);
 }
 .site-header__title:hover::before {
-    bottom: 2px;
+    bottom: 3px;
     background-color: transparent;
-    transition: background .4s ease-in-out;
+    transition: background .3s ease-in-out;
 }
 .site-header__title::before {
     content: "";
     position: absolute;
-    height: 4px;
+    height: 3px;
     width: 75px;
     background-color: #ff2f2f;
-    bottom: 16px;
-    transition: none;
+    bottom: 17px;
 }
 
 .site-nav {
