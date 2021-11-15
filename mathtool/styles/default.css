@@ -4,11 +4,13 @@
     padding: 0;
 }
 body {
-    background-color: #7c7cf0;
+    background: linear-gradient(45deg, #7c7cf0, #6a6af8);
+    background-repeat: repeat;
+    background-size: cover;
 }
 
 .site-header {
-    height: 80px;
+    height: 60px;
     background-color: #222;
     position: relative;
 }
@@ -16,7 +18,17 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #f2f2f2;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 9px;
+    transition: transform .3s ease-in-out;
+    transition-delay: 0.5s;
+}
+.site-header__title:hover {
+    transform: rotate(-2deg);
+}
+.site-header__title:hover::before {
+    bottom: 2px;
+    background-color: transparent;
+    transition: background .4s ease-in-out;
 }
 .site-header__title::before {
     content: "";
@@ -24,5 +36,35 @@ body {
     height: 4px;
     width: 75px;
     background-color: #ff2f2f;
-    bottom: 25px;
+    bottom: 16px;
+    transition: none;
+}
+
+.site-nav {
+    height: 30px;
+    background: linear-gradient(45deg, #ff2f2f, #df4545);
+}
+.site-nav:hover {
+    background: linear-gradient(45deg, #df4545, #ff2f2f);
+}
+
+.page-view {
+    height: 100px;
+    width: 100%;
+    background-color: transparent;
+    padding: 0px 15px;
+}
+@media only screen and (min-width: 600px) {
+    .page-view {
+        width: 88%;
+        margin: 0 auto;
+        padding: 0px 0px;
+    }
+}
+@media only screen and (min-width: 900px) {
+    .page-view {
+        width: 78%;
+        margin: 0 auto;
+        padding: 0px 0px;
+    }
 }
