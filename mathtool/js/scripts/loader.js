@@ -1,7 +1,7 @@
 let elements = [
   {
     path: "/mathtool/js/modules/math/main.js",
-    type: "module",
+    type: "module/javascript",
   },
 ];
 
