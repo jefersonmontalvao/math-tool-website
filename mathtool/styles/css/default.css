@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     background: linear-gradient(45deg, #7c7cf0, #6a6af8);
     background-repeat: repeat;
@@ -13,22 +14,27 @@ body {
     height: 60px;
     background-color: #222;
     position: relative;
+    text-align: center;
 }
+
 .site-header__title {
     font-family: Arial, Helvetica, sans-serif;
     color: #f2f2f2;
-    text-align: center;
     padding-top: 9px;
+    display: inline-block;
 }
+
 .site-header__title:hover {
     cursor: pointer;
     transform: rotate(-2deg);
 }
+
 .site-header__title:hover::before {
     bottom: 3px;
     background-color: transparent;
     transition: background .3s ease-in-out;
 }
+
 .site-header__title::before {
     content: "";
     position: absolute;
@@ -42,6 +48,7 @@ body {
     height: 30px;
     background: linear-gradient(45deg, #ff2f2f, #df4545);
 }
+
 .site-nav:hover {
     background: linear-gradient(45deg, #df4545, #ff2f2f);
 }
@@ -52,6 +59,7 @@ body {
     background-color: transparent;
     padding: 0px 15px;
 }
+
 @media only screen and (min-width: 600px) {
     .page-view {
         width: 88%;
@@ -59,6 +67,7 @@ body {
         padding: 0px 0px;
     }
 }
+
 @media only screen and (min-width: 900px) {
     .page-view {
         width: 78%;
