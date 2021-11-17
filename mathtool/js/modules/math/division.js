@@ -3,10 +3,11 @@ import { AbstractCursor } from "./cursor.js";
 class Division {
     constructor() {
         // Initialize few variables.
-        this.divider;
-        this.quotient;
         this.dividend;
-        this.divisionScrap;
+        this.divider;
+        this.results;
+
+        this.maxLoop = 1;
     }
 
     /**
@@ -16,18 +17,44 @@ class Division {
      * @param {boolean} fractioned - Set to returns fractional value if value is fractional
      * @returns {object} - Data about the simulatior.
      */
-    calculate(dividend, divider, fractioned = false) {
+    simulate(dividend, divider, fractioned = true) {
         this.dividend = Number(dividend);
         this.divider = Number(divider);
 
         // Check if is a valid value.
         if (!isNaN(Number(dividend) + Number(divider)) && dividend && divider) {
+            // If all interger.
             if (
                 Number.isInteger(this.dividend) &&
                 Number.isInteger(this.divider)
             ) {
-                console.log("Números inteiros");
-                // implement
+                /* Set the initial results.
+                   All values will be set before return. */
+                this.results = {
+                    dividend: this.dividend,
+                    divider: this.divider,
+                    calculations: null,
+                    quotient: fractioned
+                        ? this.dividend / this.divider
+                        : Math.trunc(this.dividend / this.divider),
+                    division_scrap: () => {
+                        return (
+                            this.dividend -
+                            this.divider *
+                                Math.trunc(this.dividend / this.divider)
+                        );
+                    },
+                };
+
+                // Simulation variables.
+                let dividendCursor = new AbstractCursor(this.dividend);
+                let calculations = [];
+
+                do {
+                    // Code
+                } while (!dividendCursor.cursorIsFinished() && !this.loopControl());
+
+                return this.results;
             } else if (
                 (Number.isInteger(this.dividend) &&
                     !Number.isInteger(this.divider)) ||
@@ -35,8 +62,6 @@ class Division {
                     Number.isInteger(this.divider))
             ) {
                 console.log("Algum número decimal.");
-                // if value is fractioned
-                // implement this.
             } else {
                 console.log("Todos os números decimais.");
             }
@@ -46,6 +71,17 @@ class Division {
             throw TypeError(
                 `values ${this.dividend} and ${this.divider} needs to be numeric`
             );
+        }
+    }
+
+    loopControl() {
+        if (this.maxLoop < 100) {
+            this.maxLoop ++;
+            return false;
+        } 
+        else {
+            console.log("Stopped by loop control.");
+            return true;
         }
     }
 }
