@@ -1,6 +1,6 @@
 let elements = [
     {
-        path: "/mathtool/js/modules/math/main.js",
+        src: "\\mathtool\\js\\modules\\math\\main.js",
         type: "module",
     },
 ];
@@ -9,7 +9,7 @@ let elements = [
 function loadScripts(elements) {
     for (item of elements) {
         const elementHTML = document.createElement("script");
-        elementHTML.setAttribute("src", item.path);
+        elementHTML.setAttribute("src", item.src);
         elementHTML.setAttribute("type", item.type);
         document.body.appendChild(elementHTML);
     }
