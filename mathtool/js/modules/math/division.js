@@ -50,9 +50,68 @@ class Division {
                 let dividendCursor = new AbstractCursor(this.dividend);
                 let calculations = [];
 
+                /**
+                 * Increase cursor length/range according to some rules.
+                 */
+                function increaseCursorRule(divider) {
+                    while (
+                        dividendCursor.cursor < divider &&
+                        calculations.slice(-1) == 0 &&
+                        !dividendCursor.isConcatView
+                    ) {
+                        try {
+                            dividendCursor.cursorIncreaseNowLen();
+                        } catch (RangeError) {
+                            break;
+                        }
+                    }
+                }
+
+                /**
+                 * Make a simulation of a difference calculation
+                 * and insert the calculation data on "calculations"
+                 * array.
+                 */
+                function appendCalculationData(divider) {
+                    // Set a concat value in cursor.
+                    if (calculations.length) {
+                        let lastDifference = calculations.slice(-1)[0].difference;
+
+                        if (lastDifference > 0) {
+                            dividendCursor.cursorSetConcat(lastDifference);
+                        }
+                    }
+
+                    let minuendValue = dividendCursor.cursor;
+                    let subtrahendValue =
+                        Math.trunc(dividendCursor.cursor / divider) * divider;
+                    let differenceValue = minuendValue - subtrahendValue;
+
+                    let calculationData = {
+                        minuend: minuendValue,
+                        subtrahend: subtrahendValue,
+                        difference: differenceValue,
+                    };
+                    calculations.push(calculationData);
+                }
+
+                function fractionateDivison() {}
+
+                let finalLoop;
                 do {
-                    // Code
-                } while (!dividendCursor.cursorIsFinished() && !this.loopControl());
+                    finalLoop = dividendCursor.cursorIsFinished()
+                        ? true
+                        : false;
+
+                    increaseCursorRule(this.divider);
+                    appendCalculationData(this.divider);
+
+                    try {
+                        // Increase the range of cursor if it has value to calculate.
+                        dividendCursor.cursorToNext();
+                    } catch (RangeError) {}
+                } while (!finalLoop && !this.loopControl());
+
 
                 return this.results;
             } else if (
@@ -75,12 +134,11 @@ class Division {
     }
 
     loopControl() {
-        if (this.maxLoop < 100) {
-            this.maxLoop ++;
+        if (this.maxLoop < 30) {
+            this.maxLoop++;
             return false;
-        } 
-        else {
-            console.log("Stopped by loop control.");
+        } else {
+            console.log("                          Stopped by loop control.");
             return true;
         }
     }
