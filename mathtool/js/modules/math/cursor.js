@@ -131,6 +131,19 @@ class AbstractCursor {
             throw RangeError("over range reached.");
         }
     }
+
+    removeCursorPattern(regex) {
+        let slicedValue = this.initialValue.toString().slice(0, this.nowLen - 1)
+        let replacedCursor = this.cursor.toString().replace(regex, "");
+        this.initialValue = slicedValue + replacedCursor;
+        this.viewValue = this.initialValue;
+        console.log(this.initialValue);
+    }
+    
+     removeCursorConcat() {
+        this.isConcatView = false;
+        this.concatValue = null;
+     }
 }
 
 export { AbstractCursor };
