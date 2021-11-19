@@ -56,8 +56,8 @@ class Division {
             let differenceValue = minuendValue - subtrahendValue;
 
             let calculationData = {
-                minuend: minuendValue,
-                subtrahend: subtrahendValue,
+                minuend: (minuendValue),
+                subtrahend: (subtrahendValue),
                 difference: differenceValue,
             };
 
@@ -125,7 +125,7 @@ class Division {
         this.divider = Number(divider);
 
         // Check if function params is a valid value.
-        if (isNumericValue(this.dividend + this.divider)) {
+        if (isNumericValue(this.dividend + this.divider) && this.divider > 0) {
             if (isInteger(this.dividend) && isInteger(this.divider)) {
                 /* Calculation method used to calculate a division where,
                 all numbers are integers.*/
@@ -146,9 +146,14 @@ class Division {
             }
         } else {
             // Error if param has a invalid value.
-            throw TypeError(
-                `values ${this.dividend} and ${this.divider} needs to be numeric`
-            );
+            if (this.divider <= 0) {
+                console.error("can not divide to 0");
+                throw Error("can not divide to 0");
+            } else {
+                throw TypeError(
+                    `values ${this.dividend} and ${this.divider} needs to be numeric`
+                );
+            }
         }
     }
 }
