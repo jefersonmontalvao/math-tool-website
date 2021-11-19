@@ -19,12 +19,8 @@ class Division {
         /**
          * Increase cursor length/range according to some rules.
          */
-        function increaseCursorRule(divider) {
-            while (
-                dividendCursor.cursor < divider &&
-                calculations.slice(-1) == 0 &&
-                !dividendCursor.isConcatView
-            ) {
+        function incrementCursorRule(divider) {
+            while (dividendCursor.cursor < divider) {
                 try {
                     dividendCursor.cursorIncreaseNowLen();
                 } catch (RangeError) {
@@ -39,29 +35,21 @@ class Division {
          * array.
          */
         function appendCalculationData(divider) {
-            if (!arrayIsEmpty(calculations)) {
-                let lastCalculationDifference =
-                    calculations.slice(-1)[0].difference;
-
-                // If had some scrap at last calculation value, set a concat value on cursor.
-                if (lastCalculationDifference > 0) {
-                    dividendCursor.cursorSetConcat(lastCalculationDifference);
-                }
-            }
-
             // This data is used for insert on this.calculations variable.
             let minuendValue = dividendCursor.cursor;
             let subtrahendValue =
                 Math.trunc(dividendCursor.cursor / divider) * divider;
             let differenceValue = minuendValue - subtrahendValue;
 
-            let calculationData = {
-                minuend: minuendValue,
-                subtrahend: subtrahendValue,
-                difference: differenceValue,
-            };
+            if (!(dividendCursor.cursor === 0)) {
+                let calculationData = {
+                    minuend: minuendValue,
+                    subtrahend: subtrahendValue,
+                    difference: differenceValue,
+                };
 
-            calculations.push(calculationData);
+                calculations.push(calculationData);
+            }
         }
 
         /**
@@ -70,7 +58,34 @@ class Division {
         function toNextCursorRule() {
             try {
                 dividendCursor.cursorToNext();
-            } catch (RangeError) {}
+                dividendCursor.removeCursorConcat();
+
+                if (!arrayIsEmpty(calculations)) {
+                    let lastCalculate = calculations[calculations.length - 1];
+                    let lastScrap =
+                        !(lastCalculate.difference === "undefined") &&
+                        lastCalculate.difference === 0
+                            ? undefined
+                            : lastCalculate.difference;
+
+                    if (!(typeof lastScrap === "undefined") && !isFinalLoop) {
+                        dividendCursor.cursorSetConcat(lastScrap);
+                    }
+
+                    while (
+                        dividendCursor.cursor === 0 &&
+                        typeof lastScrap === "undefined"
+                    ) {
+                        try {
+                            dividendCursor.cursorToNext();
+                        } catch (RangeError) {
+                            break;
+                        }
+                    }
+                }
+            } catch (RangeError) {
+                isFinalLoop = true;
+            }
         }
 
         function fractionateDivison() {}
@@ -86,7 +101,7 @@ class Division {
             isFinalLoop = dividendCursor.cursorIsFinished() ? true : false;
 
             // ! Executing important functions.
-            increaseCursorRule(this.divider);
+            incrementCursorRule(this.divider);
             appendCalculationData(this.divider);
             toNextCursorRule();
         } while (!isFinalLoop);
