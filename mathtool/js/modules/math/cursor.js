@@ -117,6 +117,20 @@ class AbstractCursor {
 
         func(args);
     }
+
+    cursorIgnoreNextValue() {
+        if (this.absoluteLen + 1 < this.initialValue.length) {
+            this.nowLen += 2;
+            this.absoluteLen += 2;
+        } else if (this.absoluteLen < this.initialValue.length) {
+            this.nowLen++;
+            this.absoluteLen++;
+            throw RangeError("over range reached.");
+        }
+        else {
+            throw RangeError("over range reached.");
+        }
+    }
 }
 
 export { AbstractCursor };
