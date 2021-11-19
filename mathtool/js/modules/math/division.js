@@ -56,8 +56,8 @@ class Division {
             let differenceValue = minuendValue - subtrahendValue;
 
             let calculationData = {
-                minuend: (minuendValue),
-                subtrahend: (subtrahendValue),
+                minuend: minuendValue,
+                subtrahend: subtrahendValue,
                 difference: differenceValue,
             };
 
