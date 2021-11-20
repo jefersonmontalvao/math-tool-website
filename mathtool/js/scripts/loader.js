@@ -1,6 +1,10 @@
 let elements = [
     {
-        src: "\\mathtool\\js\\modules\\math\\main.js",
+        src: "/mathtool/js/modules/content/main.js",
+        type: "module",
+    },
+    {
+        src: "/mathtool/js/modules/math/main.js",
         type: "module",
     },
 ];
