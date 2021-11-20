@@ -10,6 +10,10 @@ body {
     background-size: cover;
 }
 
+input {
+    outline: none;
+}
+
 .site-header {
     height: 60px;
     background-color: #222;
@@ -51,6 +55,21 @@ body {
 
 .site-nav:hover {
     background: linear-gradient(45deg, #df4545, #ff2f2f);
+}
+
+.site-nav__anchor {
+    color: #fff;
+    font-family: Tahoma, sans-serif, Arial;
+    cursor: pointer;
+    font-size: 11pt;
+    font-weight: 600;
+    display: inline-block;
+    padding: 5px 3px;
+    margin: 0 5px;
+}
+
+.site-nav__anchor:hover {
+    color: #bdbdbd;
 }
 
 .page-view {
