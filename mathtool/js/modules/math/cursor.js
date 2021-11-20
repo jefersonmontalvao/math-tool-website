@@ -2,19 +2,19 @@ class AbstractCursor {
     /**
      * This class is used to simulate a cursor where
      * it see what it is beeing calculatated, what was calculated etc.
-     * 
+     *
      * @param {number} number - A string or a number, but, need to be a numeric value.
-     *  
+     *
      */
     constructor(number) {
         // Initialize few variables.
-        this.initialValue;  // The initial value.
-        this.viewValue;  // Value that can be read.
-        this.isConcatView;  // Boolean about if it is a concatenated with viewValue.
-        this.concatValue;  // The concatenated value.
-        this.cursorIndex;  // Cursor index.
-        this.nowLen;  // Length of cursor value, viewValue.
-        this.absoluteLen;  // Used to check if the cursor itered all cursor value.
+        this.initialValue; // The initial value.
+        this.viewValue; // Value that can be read.
+        this.isConcatView; // Boolean about if it is a concatenated with viewValue.
+        this.concatValue; // The concatenated value.
+        this.cursorIndex; // Cursor index.
+        this.nowLen; // Length of cursor value, viewValue.
+        this.absoluteLen; // Used to check if the cursor itered all cursor value.
 
         // Set cursor and initialize.
         this.cursor = number;
@@ -26,14 +26,17 @@ class AbstractCursor {
      */
     get cursor() {
         if (this.isConcatView) {
-            return Number(this.concatValue.concat(this.viewValue.substr(this.cursorIndex, this.nowLen)));
-        }
-        else {
+            return Number(
+                this.concatValue.concat(
+                    this.viewValue.substr(this.cursorIndex, this.nowLen)
+                )
+            );
+        } else {
             return Number(this.viewValue.substr(this.cursorIndex, this.nowLen));
         }
     }
 
-    /** 
+    /**
      * Cursor attribute setter.
      * @param {number} value - Cursor value
      */
@@ -54,9 +57,8 @@ class AbstractCursor {
         if (this.absoluteLen < this.initialValue.length) {
             this.nowLen++;
             this.absoluteLen++;
-        }
-        else {
-            throw RangeError("over range reached.")
+        } else {
+            throw RangeError("over range reached.");
         }
     }
 
@@ -70,9 +72,8 @@ class AbstractCursor {
             this.cursorIndex = this.absoluteLen;
             this.nowLen = 1;
             this.absoluteLen++;
-        }
-        else {
-            throw RangeError("over range reached.")
+        } else {
+            throw RangeError("over range reached.");
         }
     }
 
@@ -84,9 +85,8 @@ class AbstractCursor {
         if (!isNaN(value) && value) {
             this.isConcatView = true;
             this.concatValue = value.toString();
-        }
-        else {
-            throw TypeError(`type ${typeof value} is invalid.`)
+        } else {
+            throw TypeError(`type ${typeof value} is invalid.`);
         }
     }
 
@@ -95,12 +95,12 @@ class AbstractCursor {
      * @returns {boolean}
      */
     cursorIsFinished() {
-        return (this.absoluteLen == this.initialValue.length)
+        return this.absoluteLen == this.initialValue.length;
     }
 
     /**
      * Make a custom behavior.
-     * @param {function} func 
+     * @param {function} func
      */
     cursorCustomBehavior(func) {
         args = {
@@ -112,11 +112,38 @@ class AbstractCursor {
             now_len: this.nowLen,
             absolute_len: this.absoluteLen,
             cursor: this.cursor,
-            self: this
+            self: this,
         };
-        
+
         func(args);
     }
+
+    cursorIgnoreNextValue() {
+        if (this.absoluteLen + 1 < this.initialValue.length) {
+            this.nowLen += 2;
+            this.absoluteLen += 2;
+        } else if (this.absoluteLen < this.initialValue.length) {
+            this.nowLen++;
+            this.absoluteLen++;
+            throw RangeError("over range reached.");
+        }
+        else {
+            throw RangeError("over range reached.");
+        }
+    }
+
+    removeCursorPattern(regex) {
+        let slicedValue = this.initialValue.toString().slice(0, this.nowLen - 1)
+        let replacedCursor = this.cursor.toString().replace(regex, "");
+        this.initialValue = slicedValue + replacedCursor;
+        this.viewValue = this.initialValue;
+        console.log(this.initialValue);
+    }
+    
+     removeCursorConcat() {
+        this.isConcatView = false;
+        this.concatValue = null;
+     }
 }
 
 export { AbstractCursor };
