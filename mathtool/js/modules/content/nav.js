@@ -15,7 +15,6 @@ function navHandler() {
     const navElement = document.querySelector(".site-nav");
 
     // Set to load home page.
-
     for (let data of navData) {
         const navLabelElement = document.createElement("a");
         navLabelElement.setAttribute("class", "site-nav__anchor");
