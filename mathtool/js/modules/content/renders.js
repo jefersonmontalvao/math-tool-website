@@ -1,5 +1,5 @@
 import { divisionTemplate } from "./templates.js";
-import { addVerifyDivisionInputsEvent } from "./content_verification.js";
+import { DivisionViewEvents } from "./events.js";
 
 var pageView = document.querySelector(".page-view");
 
@@ -9,7 +9,7 @@ function homeRender() {
 
 function divisionRender() {
     pageView.innerHTML = divisionTemplate;
-    addVerifyDivisionInputsEvent();
+    new DivisionViewEvents();
 }
 
 export { homeRender, divisionRender };
