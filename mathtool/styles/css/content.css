@@ -30,7 +30,7 @@
 .division-form__dividend,
 .division-form__divider {
     border: none;
-    border-bottom: 1px solid #4d4d4d;
+    border-bottom: 1px solid #080808;
     padding: 0 5px;
     height: 23px;
     color: #000;
@@ -66,4 +66,9 @@
     border: none;
     border-radius: 3px;
     padding: 3px 0;
+}
+
+.division-form__btn-calculate:hover {
+    background-color: #008000;
+    cursor: pointer;
 }
