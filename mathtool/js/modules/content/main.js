@@ -1,6 +1,4 @@
-import { navHandler } from "./nav.js";
-import { initialRender } from "./utils.js"
+import { initNavHandler } from "./nav.js";
 
 // Events
-window.addEventListener("load", navHandler);
-window.addEventListener("load", initialRender);
+window.addEventListener("load", initNavHandler);
