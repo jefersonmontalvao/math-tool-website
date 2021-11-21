@@ -42,21 +42,6 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.division-form__dividend:valid {
-    border-color: #008000;
-}
-.division-form__divider:valid {
-    border-color: #008000;
-}
-
-.division-form__dividend:invalid {
-    color: #ff0000;
-}
-
-.division-form__divider:invalid {
-    color: #ff0000;
-}
-
 .division-form__btn-calculate {
     background-color: #5dc05d;
     font-family: Arial, Helvetica, sans-serif;
