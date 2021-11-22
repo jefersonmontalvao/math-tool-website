@@ -1,10 +1,6 @@
 let elements = [
     {
-        src: "/js/modules/content/main.js",
-        type: "module",
-    },
-    {
-        src: "/js/modules/math/main.js",
+        src: "./js/modules/content/main.js",
         type: "module",
     },
 ];
