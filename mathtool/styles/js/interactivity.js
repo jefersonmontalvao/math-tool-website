@@ -12,30 +12,70 @@ hamburger.addEventListener("click", () => {
         }, 300);
     }
 
-    // Open and close menu.
-    menu.style.height = window.innerHeight + "px";
-    if (window.getComputedStyle(menu).display === "none") {
+    // Increase element height to max-screen height.
+    if (window.getComputedStyle(menu).height.split("px")[0] < window.innerHeight) {
+        menu.style.height = (window.innerHeight - 51) + "px";
+    }
+    
+    // Open and close menu using width increase and decrease animation.
+    if (window.getComputedStyle(menu).width === "0px") {
         setTimeout(() => {
-            menu.style.display = "block";
+            // Animation
+            let id = null;
+            let width = 0;
+            clearInterval(id);
+            id = setInterval(frame, 0);
+            function frame() {
+                if (window.getComputedStyle(menu).width === "190px") {
+                    clearInterval(id);
+                } else {
+                    width += 5;
+                    menu.style.width = width + "px";
+                    menu.style.minWidth = width + "px";
+                }
+            }
         }, 500);
     } else {
         setTimeout(() => {
-            menu.style.display = "none";
+            // Animation
+            let id = null;
+            let width = 190;
+            clearInterval(id);
+            id = setInterval(frame, 0);
+
+            function frame() {
+                if (window.getComputedStyle(menu).width === "0px") {
+                    clearInterval(id);
+                } else {
+                    width -= 5;
+                    menu.style.width = width + "px";
+                    menu.style.minWidth = width + "px";
+                }
+            }
         }, 500);
     }
 });
 
+// Close menu if user click in some element outsite of hamburger.
 document.addEventListener(
     "click",
     (e) => {
         e = e || window.event;
         let target = e.target;
+        let targetClass = target.getAttribute("class");
+        let isClickingOnHamburger =
+            targetClass === "hamburger site-header__hamburger" ||
+            targetClass === "hamburger__layer";
 
-        if (window.getComputedStyle(menu).display === "block") {
+        if (
+            window.getComputedStyle(menu).width === "190px" &&
+            !isClickingOnHamburger
+        ) {
             setTimeout(() => {
-                menu.style.display = "none";
+                menu.style.width = "0px";
+                menu.style.minWidth = "0px";
             }, 200);
         }
     },
-    false
+    true
 );
