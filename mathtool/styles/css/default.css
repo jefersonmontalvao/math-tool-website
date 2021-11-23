@@ -4,7 +4,12 @@
     padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #fffffe;
 }
 
@@ -52,7 +57,7 @@ body {
     flex-direction: column;
     display: -webkit-flex;
     -ms-flex-direction: column;
-    justify-content: center;    
+    justify-content: center;
     align-items: center;
     height: 41px;
     width: 41px;
@@ -61,7 +66,6 @@ body {
     border-radius: 50%;
     text-align: center;
     background-color: #16161a;
-    transition: background .3s ease-in-out;
 }
 
 .hamburger__layer {
@@ -105,10 +109,8 @@ body {
 }
 
 .site-flexbox__nav {
-    display: none;
-    position: fixed;
     background-color: #16161a;
-    min-width: 190px;
+    width: 0px;
     max-width: 190px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -139,10 +141,12 @@ body {
 }
 
 .page-view {
+    height: 900px;
     width: 100%;
     background-color: #fffffe;
 }
 
+/* Tablets */
 @media only screen and (min-width: 600px) {
     .page-view {
         width: 88%;
@@ -151,6 +155,7 @@ body {
     }
 }
 
+/* Desktops and notebooks. */
 @media only screen and (min-width: 900px) {
     .page-view {
         width: 78%;
