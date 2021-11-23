@@ -1,35 +1,31 @@
 import { homeRender, divisionRender } from "./renders.js";
 
-let navLoadData = [
+let navMetaData = [
     {
-        label: "Início",
+        label: "Home",
         render: homeRender,
     },
     {
-        label: "Divisão",
+        label: "Division",
         render: divisionRender,
     },
 ];
 
 function initNavHandler() {
-    const navElement = document.querySelector(".site-nav");
+    const navLabels = document.querySelectorAll(".site-nav__label");
 
-    // Set to load home page.
-    for (let data of navLoadData) {
-        const navLabelElement = document.createElement("a");
-        navLabelElement.setAttribute("class", "site-nav__anchor");
-        navLabelElement.innerHTML = data.label;
-        navLabelElement.addEventListener("click", data.render);
-
-        navElement.appendChild(navLabelElement);
+    for (let data of navMetaData) {
+        navLabels.forEach((value) => {
+            if (value.innerText === data.label) {
+                value.parentNode.addEventListener("click", data.render);
+            }
+        });
     }
 
     // Initialize the first view.
     // Add event on site logo.
     let logoElement = document.querySelector(".site-header__title");
     logoElement.addEventListener("click", homeRender);
-
-    // Render the Home page.
     homeRender();
 }
 
