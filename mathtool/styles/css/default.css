@@ -36,11 +36,28 @@ input[type="button"] {
     color: #fffffe;
 }
 
+
+*::-webkit-scrollbar-thumb {
+    background-color: #72757e;
+    border-radius: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
 body {
     background-color: #16161a;
 }
 
 .site-header {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
     display: -webkit-flex;
     -ms-flex-direction: row;
     display: flex;
@@ -100,18 +117,14 @@ body {
     content: "";
 }
 
-.site-flexbox {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    grid-template-columns: 170px auto;
-}
-
-.site-flexbox__nav {
+.site-nav {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 51px;
+    float: left;
     background-color: #16161a;
     width: 0px;
-    max-width: 190px;
+    max-width: 190px; 
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -135,31 +148,33 @@ body {
 
 .site-nav__label {
     font-family: Tahoma, Helvetica, sans-serif;
-    font-weight: 600;
+    font-weight: 300;
     color: #fffffe;
     text-decoration: none;
 }
 
-.page-view {
-    height: 900px;
-    width: 100%;
-    background-color: #fffffe;
+.site-main {
+    height: auto;
+    margin: 30px auto;
+    width: 78%;
+    background-color: #16161a;
+}
+
+* {
+    overflow-x: hidden;
+    overflow-wrap: anywhere;
 }
 
 /* Tablets */
 @media only screen and (min-width: 600px) {
-    .page-view {
-        width: 88%;
-        margin: 0 auto;
-        padding: 0px 0px;
+    .site-main {
+        width: 82%;
     }
 }
 
 /* Desktops and notebooks. */
 @media only screen and (min-width: 900px) {
-    .page-view {
-        width: 78%;
-        margin: 0 auto;
-        padding: 0px 0px;
+    .site-main {
+        width: 85%;
     }
-}
+} 
