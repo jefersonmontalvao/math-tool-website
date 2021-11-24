@@ -1,62 +1,96 @@
 const hamburger = document.querySelector(".site-header__hamburger");
-const menu = document.querySelector(".site-flexbox__nav");
+const menu = document.querySelector(".site-nav");
+const main = document.querySelector(".site-main");
 
-hamburger.addEventListener("click", () => {
-    // Change hamburger background color on click.
-    if (
-        window.getComputedStyle(hamburger).backgroundColor === "rgb(22, 22, 26)"
-    ) {
-        hamburger.style.backgroundColor = "#72757e";
+/**
+ * Make hamburger background blink.
+ */
+function blinkHamburger() {
+    let defaultColor = "rgb(22, 22, 26)";
+    let blinkColor = "#72757e";
+
+    if (getComputedStyle(hamburger).backgroundColor === defaultColor) {
+        hamburger.style.backgroundColor = blinkColor;
         setTimeout(() => {
-            hamburger.style.backgroundColor = "rgb(22, 22, 26)";
+            hamburger.style.backgroundColor = defaultColor;
         }, 300);
     }
+}
 
-    // Increase element height to max-screen height.
-    if (window.getComputedStyle(menu).height.split("px")[0] < window.innerHeight) {
-        menu.style.height = (window.innerHeight - 51) + "px";
+/**
+ * Make nav element increase height to the max view port.
+ */
+function setMaxHeightOnNav() {
+    if (getComputedStyle(menu).height.split("px")[0] < window.innerHeight) {
+        menu.style.height = window.innerHeight - 51 + "px";
     }
-    
-    // Open and close menu using width increase and decrease animation.
-    if (window.getComputedStyle(menu).width === "0px") {
-        setTimeout(() => {
-            // Animation
-            let id = null;
-            let width = 0;
-            clearInterval(id);
-            id = setInterval(frame, 0);
-            function frame() {
-                if (window.getComputedStyle(menu).width === "190px") {
-                    clearInterval(id);
-                } else {
-                    width += 5;
-                    menu.style.width = width + "px";
-                    menu.style.minWidth = width + "px";
-                }
-            }
-        }, 500);
-    } else {
-        setTimeout(() => {
-            // Animation
-            let id = null;
-            let width = 190;
-            clearInterval(id);
-            id = setInterval(frame, 0);
+}
 
-            function frame() {
-                if (window.getComputedStyle(menu).width === "0px") {
-                    clearInterval(id);
+/**
+ * Perform an animation while open menu.
+ */
+function menuOpenCloseAnimation(action, ms = 500) {
+    setTimeout(() => {
+        let id = null;
+        let width = action === "open" ? 0 : 190;
+        let marginValue = Number(
+            getComputedStyle(main).marginLeft.split("px")[0]
+        );
+
+        clearInterval(id);
+
+        id = setInterval(() => {
+            let widthConditionValue = action === "open" ? "190px" : "0px";
+
+            // This action is performed at the end of animation.
+            if (getComputedStyle(menu).width === widthConditionValue) {
+                if (action === "close") {
+                    main.removeAttribute("style");
+                }
+
+                clearInterval(id);
+            }
+            // This action is performed when animation is running. 
+            else {
+                width += action === "open" ? 5 : -5;
+
+                menu.style.width = width + "px";
+                menu.style.minWidth = width + "px";
+
+                if (window.innerWidth > 600) {
+                    // Solve resposive on small devices.
+                    marginValue =
+                        action === "open" ? marginValue + 5 : marginValue - 5;
+
+                    main.style.marginLeft = marginValue + "px";
+                    main.style.width = "auto";
                 } else {
-                    width -= 5;
-                    menu.style.width = width + "px";
-                    menu.style.minWidth = width + "px";
+                    // Make a "margin" using last margin value and setting it
+                    // on "left" because fixed attribute does not accept
+                    // margins.
+                    // This action is performed for large devices.
+                    console.log(marginValue);
+                    main.style.position = "fixed";
+                    if (marginValue > 0) {
+                        main.style.left = marginValue + "px";
+                    }
                 }
             }
-        }, 500);
+        }, 0);
+    }, ms);
+}
+
+// Events:
+hamburger.addEventListener("click", () => {
+    blinkHamburger();
+    setMaxHeightOnNav();
+    if (window.getComputedStyle(menu).width === "0px") {
+        menuOpenCloseAnimation("open");
+    } else {
+        menuOpenCloseAnimation("close");
     }
 });
 
-// Close menu if user click in some element outsite of hamburger.
 document.addEventListener(
     "click",
     (e) => {
@@ -71,10 +105,7 @@ document.addEventListener(
             window.getComputedStyle(menu).width === "190px" &&
             !isClickingOnHamburger
         ) {
-            setTimeout(() => {
-                menu.style.width = "0px";
-                menu.style.minWidth = "0px";
-            }, 200);
+            menuOpenCloseAnimation(close, 150);
         }
     },
     true
