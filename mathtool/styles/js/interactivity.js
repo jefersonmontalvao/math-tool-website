@@ -63,13 +63,13 @@ function menuOpenCloseAnimation(action, ms = 500) {
                         action === "open" ? marginValue + 5 : marginValue - 5;
 
                     main.style.marginLeft = marginValue + "px";
+                    main.style.marginRight = "25px";
                     main.style.width = "auto";
                 } else {
                     // Make a "margin" using last margin value and setting it
                     // on "left" because fixed attribute does not accept
                     // margins.
                     // This action is performed for large devices.
-                    console.log(marginValue);
                     main.style.position = "fixed";
                     if (marginValue > 0) {
                         main.style.left = marginValue + "px";
@@ -106,7 +106,7 @@ document.addEventListener(
             window.getComputedStyle(menu).width === "190px" &&
             !isClickingOnHamburger
         ) {
-            menuOpenCloseAnimation(close, 150);
+            menuOpenCloseAnimation("close", 150);
         }
     },
     true
