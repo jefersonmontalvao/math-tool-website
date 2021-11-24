@@ -17,6 +17,11 @@ p {
     color: #94a1b2;
 }
 
+label {
+    font-weight: 600;
+    color: #fffffe;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -25,6 +30,10 @@ input::-webkit-inner-spin-button {
 
 input {
     outline: none;
+    border: none;
+    background-color: #16161a;
+    font-weight: 600;
+    color: #fffffe;
 }
 
 input[type="number"] {
@@ -34,6 +43,12 @@ input[type="number"] {
 input[type="button"] {
     background-color: #7f5af0;
     color: #fffffe;
+    cursor: pointer;
+}
+
+input::placeholder {
+    color: #fffffe;
+    font-weight: 600;
 }
 
 
@@ -52,6 +67,7 @@ input[type="button"] {
 
 body {
     background-color: #16161a;
+    font-family: proxima-nova, sans-serif;
 }
 
 .site-header {
@@ -157,12 +173,9 @@ body {
     height: auto;
     margin: 30px auto;
     width: 78%;
-    background-color: #16161a;
-}
-
-* {
-    overflow-x: hidden;
-    overflow-wrap: anywhere;
+    padding: 24px;
+    background-color: #242629;
+    border-radius: 3px;
 }
 
 /* Tablets */
