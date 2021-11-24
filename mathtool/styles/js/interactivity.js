@@ -84,9 +84,10 @@ function menuOpenCloseAnimation(action, ms = 500) {
 hamburger.addEventListener("click", () => {
     blinkHamburger();
     setMaxHeightOnNav();
+
     if (window.getComputedStyle(menu).width === "0px") {
         menuOpenCloseAnimation("open");
-    } else {
+    } else if (window.getComputedStyle(menu).width === "190px") {
         menuOpenCloseAnimation("close");
     }
 });
