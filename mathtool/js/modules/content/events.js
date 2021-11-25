@@ -41,24 +41,26 @@ class DivisionViewEvents extends BaseViewEvents {
     constructor() {
         super();
         // Dom Elements
-        this.elementDividend = document.getElementById("input-dividend");
-        this.elementDivider = document.getElementById("input-divider");
-        this.elementbtnCalculate = document.querySelector(
-            ".division-form__btn-calculate"
-        );
+        this.elementDividend = document.getElementById("dividend");
+        this.elementDivider = document.getElementById("divider");
+        this.elementbtnCalculate = document.getElementById("btn-calculate");
 
         // Set necessary events.
         this.elementDividend.addEventListener("input", () => {
-            this.elementDividend.value = this.removeInvalidCharacters(
-                this.elementDividend.value
-            );
+            if (this.elementDividend.value.length) {
+                this.elementDividend.value = this.removeInvalidCharacters(
+                    this.elementDividend.value
+                );
+            }
             this.removeErrorStyleIfEmpty();
         });
 
         this.elementDivider.addEventListener("input", () => {
-            this.elementDivider.value = this.removeInvalidCharacters(
-                this.elementDivider.value
-            );
+            if (this.elementDivider.value.length) {
+                this.elementDivider.value = this.removeInvalidCharacters(
+                    this.elementDivider.value
+                );
+            }
             this.removeErrorStyleIfEmpty();
         });
 
@@ -72,20 +74,16 @@ class DivisionViewEvents extends BaseViewEvents {
                 if (pressedkey === "Enter") {
                     this.checkAllFields();
                     this.elementbtnCalculate.click();
-                    this.elementbtnCalculate.hover();
                 }
             } 
         });
     }
 
     removeInvalidCharacters(text) {
-        const invalidCharactersPattern = /^[^\d]|[^\d.,]/g;
-        const invalidPattern = /(^\d+[.,]{2})|(^\d+[.,]{1}\d+[,.]{1})/g;
+        const invalidCharactersPattern = /[^\d.,]/g;
 
         if (invalidCharactersPattern.test(text)) {
             text = text.replaceAll(invalidCharactersPattern, "");
-        } else if (invalidPattern.test(text)) {
-            text = text.slice(0, -1);
         }
         return text;
     }
@@ -96,22 +94,22 @@ class DivisionViewEvents extends BaseViewEvents {
         if (!validPattern.test(this.elementDividend.value) && this.elementDividend.value.length) {
             this.elementDividend.style.color = "red";
         } else {
-            this.elementDividend.style.color = "#080808";
+            this.elementDividend.removeAttribute("style");
         }
 
         if (!validPattern.test(this.elementDivider.value) && this.elementDivider.value.length) {
             this.elementDivider.style.color = "red";
         } else {
-            this.elementDivider.style.color = "#080808";
+            this.elementDivider.removeAttribute("style");
         }
     }
 
     removeErrorStyleIfEmpty() {
         if (!this.elementDividend.value.length) {
-            this.elementDividend.style.color = "#080808";
+            this.elementDividend.removeAttribute("style");
         }
         if (!this.elementDivider.value.length) {
-            this.elementDivider.style.color = "#080808";
+            this.elementDivider.removeAttribute("style");
         }
     }
 }
