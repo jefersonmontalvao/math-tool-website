@@ -13,6 +13,15 @@ h6 {
     color: #fffffe;
 }
 
+a {
+    text-decoration: none;
+    color: currentColor;
+}
+
+hr {
+    border-color: rgba(112, 103, 103, 0.568);
+}
+
 p {
     color: #94a1b2;
 }
@@ -31,9 +40,13 @@ input::-webkit-inner-spin-button {
 input {
     outline: none;
     border: none;
-    background-color: #16161a;
     font-weight: 600;
+    padding: 9px;
+    font-size: 13px;
+    border-radius: 4px;
     color: #fffffe;
+    font-weight: 600;
+    background-color: #16161a;
 }
 
 input[type="number"] {
@@ -42,7 +55,6 @@ input[type="number"] {
 
 input[type="button"] {
     background-color: #7f5af0;
-    color: #fffffe;
     cursor: pointer;
 }
 
@@ -158,13 +170,22 @@ body {
 }
 
 .site-nav__icon {
+    background-image: url('https://img.icons8.com/material-outlined/48/000000/math.png');
+    background-size: contain;
+    background-color: #fffffe;
     color: red;
-    margin: 0 20px;
+    margin: 0 15px 0 17px;
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    border-radius: 3px;
 }
 
 .site-nav__label {
     font-family: Tahoma, Helvetica, sans-serif;
-    font-weight: 300;
+    font-weight: 600;
     color: #fffffe;
     text-decoration: none;
 }
