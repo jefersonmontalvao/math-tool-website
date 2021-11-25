@@ -1,4 +1,4 @@
-import { homeTemplate, divisionTemplate } from "./templates.js";
+import { divisionTemplate } from "./templates.js";
 import { DivisionViewEvents } from "./events.js";
 
 var pageView = document.querySelector(".site-main");
